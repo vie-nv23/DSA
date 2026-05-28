@@ -229,14 +229,87 @@ void hienThiDSLK(Node* head)
 
     cout << endl;
 }
+Node* congDaThucDSLK(Node* p, Node* q)
+{
+    Node* r = NULL;
+
+    while (p != NULL && q != NULL)
+    {
+        // Cung so mu
+        if (p->SoMu == q->SoMu)
+        {
+            chenCuoi(r,
+                      p->HeSo + q->HeSo,
+                      p->SoMu);
+
+            p = p->next;
+            q = q->next;
+        }
+
+        // P co so mu lon hon
+        else if (p->SoMu >
+                 q->SoMu)
+        {
+            chenCuoi(r,
+                      p->HeSo,
+                      p->SoMu);
+
+            p = p->next;
+        }
+
+        // Q co so mu lon hon
+        else
+        {
+            chenCuoi(r,
+                      q->HeSo,
+                      q->SoMu);
+
+            q = q->next;
+        }
+    }
+
+    while (p != NULL)
+    {
+        chenCuoi(r,
+                  p->HeSo,
+                  p->SoMu);
+
+        p = p->next;
+    }
+
+    while (q != NULL)
+    {
+        chenCuoi(r,
+                  q->HeSo,
+                  q->SoMu);
+
+        q = q->next;
+    }
+
+    return r;
+}
 int main()
 {
     Node* p = NULL;
+    Node* q = NULL;
+    Node* r = NULL;
 
+    cout << "Nhap da thuc P:" << endl;
     nhapDaThucDSLK(p);
 
-    cout << "Da thuc vua nhap: ";
+    cout << "Nhap da thuc Q:" << endl;
+    nhapDaThucDSLK(q);
+
+    cout << "Da thuc P: ";
     hienThiDSLK(p);
+
+    cout << "Da thuc Q: ";
+    hienThiDSLK(q);
+
+    r = congDaThucDSLK(p, q);
+
+    cout << "Tong hai da thuc: ";
+    hienThiDSLK(r);
 
     return 0;
 }
