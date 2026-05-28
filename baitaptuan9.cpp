@@ -169,6 +169,62 @@ void hienThiDanhSach(List l)
         p = p->link;
     }
 }
+void timSinhVienCungNgaySinh(List l)
+{
+    Node* p = l.first;
+    int timThay = 0;
+
+    while (p != NULL)
+    {
+        Node* q = p->link;
+        int dem = 0;
+
+        while (q != NULL)
+        {
+            if (p->data.ngaySinh.ngay
+                == q->data.ngaySinh.ngay
+                &&
+                p->data.ngaySinh.thang
+                == q->data.ngaySinh.thang
+                &&
+                p->data.ngaySinh.nam
+                == q->data.ngaySinh.nam)
+            {
+                if (dem == 0)
+                {
+                    cout << endl;
+                    cout << "Sinh vien cung ngay sinh "
+                         << p->data.ngaySinh.ngay
+                         << "/"
+                         << p->data.ngaySinh.thang
+                         << "/"
+                         << p->data.ngaySinh.nam
+                         << endl;
+
+                    cout << p->data.hoTen
+                         << endl;
+                }
+
+                cout << q->data.hoTen
+                     << endl;
+
+                dem++;
+                timThay = 1;
+            }
+
+            q = q->link;
+        }
+
+        p = p->link;
+    }
+
+    if (timThay == 0)
+    {
+        cout << endl;
+        cout << "Khong tim thay sinh vien cung ngay sinh"
+             << endl;
+    }
+}
 int main()
 {
     List ListSV;
@@ -201,6 +257,7 @@ int main()
          << endl;
 
     hienThiDanhSach(ListSV);
+    timSinhVienCungNgaySinh(ListSV);
 
     return 0;
 }
