@@ -71,8 +71,6 @@ void themCuoi(List& l, SinhVien x)
 
 void nhap1SinhVien(SinhVien& sv)
 {
-    cin.ignore();
-
     cout << "Nhap ma sinh vien: ";
     cin.getline(sv.maSV, 8);
 
