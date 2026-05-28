@@ -12,7 +12,7 @@ struct Ngay
 
 struct SinhVien
 {
-    char maSV[8];
+    char maSV[20];
     char hoTen[50];
     int gioiTinh;
     Ngay ngaySinh;
@@ -69,10 +69,50 @@ void themCuoi(List& l, SinhVien x)
     }
 }
 
+void chenTheoMaSV(List& l, SinhVien x)
+{
+    Node* p = taoNode(x);
+
+    // Danh sach rong
+    if (l.first == NULL)
+    {
+        l.first = p;
+        l.last = p;
+    }
+
+    // Chen vao dau
+    else if (strcmp(x.maSV,
+                    l.first->data.maSV) < 0)
+    {
+        p->link = l.first;
+        l.first = p;
+    }
+
+    // Chen vao giua hoac cuoi
+    else
+    {
+        Node* q = l.first;
+
+        while (q->link != NULL &&
+               strcmp(q->link->data.maSV,
+                      x.maSV) < 0)
+        {
+            q = q->link;
+        }
+
+        p->link = q->link;
+        q->link = p;
+
+        if (p->link == NULL)
+        {
+            l.last = p;
+        }
+    }
+}
 void nhap1SinhVien(SinhVien& sv)
 {
     cout << "Nhap ma sinh vien: ";
-    cin.getline(sv.maSV, 8);
+    cin.getline(sv.maSV, 20);
 
     cout << "Nhap ho ten: ";
     cin.getline(sv.hoTen, 50);
@@ -135,11 +175,30 @@ int main()
 
     khoiTao(ListSV);
 
-    SinhVien sv1;
+    int n;
 
-    nhap1SinhVien(sv1);
+    cout << "Nhap so luong sinh vien: ";
+    cin >> n;
 
-    themCuoi(ListSV, sv1);
+    cin.ignore();
+
+    for (int i = 0; i < n; i++)
+    {
+        SinhVien sv;
+
+        cout << endl;
+        cout << "Nhap sinh vien thu "
+             << i + 1
+             << endl;
+
+        nhap1SinhVien(sv);
+
+        chenTheoMaSV(ListSV, sv);
+    }
+
+    cout << endl;
+    cout << "Danh sach sau sap xep:"
+         << endl;
 
     hienThiDanhSach(ListSV);
 
