@@ -113,6 +113,7 @@ DaThuc congDaThuc(DaThuc p, DaThuc q)
 
     return r;
 }
+/*
 int main()
 {
     DaThuc p;
@@ -135,6 +136,107 @@ int main()
 
     cout << "Tong hai da thuc: ";
     hienThiDaThuc(r);
+
+    return 0;
+}
+    */
+// ===== DS MOC NOI =====
+struct Node
+{
+    float HeSo;
+    int SoMu;
+    Node* next;
+};
+
+Node* taoNode(float heSo, int soMu)
+{
+    Node* p = new Node;
+
+    p->HeSo = heSo;
+    p->SoMu = soMu;
+    p->next = NULL;
+
+    return p;
+}
+
+void chenCuoi(Node*& head,
+              float heSo,
+              int soMu)
+{
+    Node* p = taoNode(heSo, soMu);
+
+    if (head == NULL)
+    {
+        head = p;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = p;
+}
+
+void nhapDaThucDSLK(Node*& head)
+{
+    int n;
+
+    cout << "Nhap so luong don thuc: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        float heSo;
+        int soMu;
+
+        cout << "Don thuc thu "
+             << i + 1
+             << endl;
+
+        cout << "He so: ";
+        cin >> heSo;
+
+        cout << "So mu: ";
+        cin >> soMu;
+
+        chenCuoi(head,
+                 heSo,
+                 soMu);
+    }
+}
+
+void hienThiDSLK(Node* head)
+{
+    Node* p = head;
+
+    while (p != NULL)
+    {
+        cout << p->HeSo
+             << "x^"
+             << p->SoMu;
+
+        if (p->next != NULL)
+        {
+            cout << " + ";
+        }
+
+        p = p->next;
+    }
+
+    cout << endl;
+}
+int main()
+{
+    Node* p = NULL;
+
+    nhapDaThucDSLK(p);
+
+    cout << "Da thuc vua nhap: ";
+    hienThiDSLK(p);
 
     return 0;
 }
