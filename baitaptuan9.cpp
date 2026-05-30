@@ -225,6 +225,74 @@ void timSinhVienCungNgaySinh(List l)
              << endl;
     }
 }
+void xoaSinhVienCungNgaySinh(List& l)
+{
+    Node* p = l.first;
+
+    while (p != NULL)
+    {
+        Node* truoc = p;
+        Node* q = p->link;
+        int trung = 0;
+
+        while (q != NULL)
+        {
+            if (p->data.ngaySinh.ngay
+                == q->data.ngaySinh.ngay
+                &&
+                p->data.ngaySinh.thang
+                == q->data.ngaySinh.thang
+                &&
+                p->data.ngaySinh.nam
+                == q->data.ngaySinh.nam)
+            {
+                Node* temp = q;
+
+                truoc->link = q->link;
+                q = q->link;
+
+                delete temp;
+
+                trung = 1;
+            }
+            else
+            {
+                truoc = q;
+                q = q->link;
+            }
+        }
+
+        // Neu p trung voi ai do thi xoa p
+        if (trung == 1)
+        {
+            Node* temp = p;
+
+            if (p == l.first)
+            {
+                l.first = p->link;
+                p = l.first;
+            }
+            else
+            {
+                Node* k = l.first;
+
+                while (k->link != p)
+                {
+                    k = k->link;
+                }
+
+                k->link = p->link;
+                p = p->link;
+            }
+
+            delete temp;
+        }
+        else
+        {
+            p = p->link;
+        }
+    }
+}
 int main()
 {
     List ListSV;
@@ -258,6 +326,12 @@ int main()
 
     hienThiDanhSach(ListSV);
     timSinhVienCungNgaySinh(ListSV);
+xoaSinhVienCungNgaySinh(ListSV);
 
+cout << endl;
+cout << "Danh sach sau khi xoa:"
+     << endl;
+
+hienThiDanhSach(ListSV);
     return 0;
 }
