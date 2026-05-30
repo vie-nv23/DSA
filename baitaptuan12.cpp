@@ -15,7 +15,48 @@ void xuatMang(int a[],
 
     cout << endl;
 }
+void doiCho(int& a,
+            int& b)
+{
+    int t = a;
+    a = b;
+    b = t;
+}
 
+void vunDong(int a[],
+             int n,
+             int i)
+{
+    int max = i;
+
+    int left =
+        2 * i + 1;
+
+    int right =
+        2 * i + 2;
+
+    if (left < n &&
+        a[left] > a[max])
+    {
+        max = left;
+    }
+
+    if (right < n &&
+        a[right] > a[max])
+    {
+        max = right;
+    }
+
+    if (max != i)
+    {
+        doiCho(a[i],
+               a[max]);
+
+        vunDong(a,
+                n,
+                max);
+    }
+}
 int main()
 {
     int a[] =
@@ -34,6 +75,12 @@ int main()
         << endl;
 
     xuatMang(a, n);
+cout
+    << "Vun đống gốc:"
+    << endl;
 
+vunDong(a, n, 0);
+
+xuatMang(a, n);
     return 0;
 }
