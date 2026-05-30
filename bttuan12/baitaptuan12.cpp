@@ -75,12 +75,56 @@ int main()
         << endl;
 
     xuatMang(a, n);
+for (int i =
+     n / 2 - 1;
+     i >= 0;
+     i--)
+{
+    vunDong(a,
+            n,
+            i);
+
+    cout
+        << "Vun dong "
+        << i
+        << ": "
+        << endl;
+
+    xuatMang(a,
+             n);
+}
+for (int i =
+     n - 1;
+     i > 0;
+     i--)
+{
+    doiCho(a[0],
+           a[i]);
+
+    cout
+        << "doi cho ptu:"
+        << endl;
+
+    xuatMang(a,
+             n);
+
+    vunDong(a,
+            i,
+            0);
+
+    cout
+        << "Vun dong again:"
+        << endl;
+
+    xuatMang(a,
+             n);
+}
+
 cout
-    << "Vun đống gốc:"
+    << "Mang sap xep:"
     << endl;
 
-vunDong(a, n, 0);
-
-xuatMang(a, n);
+xuatMang(a,
+         n);
     return 0;
 }
