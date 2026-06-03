@@ -55,6 +55,39 @@ void NLR(Node* root)
         NLR(root->right);
     }
 }
+Node* timKiem(Node* root,
+              int x)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+
+    if (root->namSinh == x)
+    {
+        return root;
+    }
+
+    Node* p;
+
+    if (x < root->namSinh)
+    {
+        p = timKiem(root->left,
+                    x);
+
+        return p;
+    }
+
+    if (x > root->namSinh)
+    {
+        p = timKiem(root->right,
+                    x);
+
+        return p;
+    }
+
+    return NULL;
+}
 int main()
 {
     Node* root = NULL;
@@ -73,6 +106,24 @@ int main()
     cout
         << "duyet cay theo NLR: " << endl;
     NLR(root);
+    cout << endl;
+
+Node* p;
+
+p = timKiem(root, 2004);
+
+if (p != NULL)
+{
+    cout
+        << "Tim thay sinh vien 2004"
+        << endl;
+}
+else
+{
+    cout
+        << "Khong tim thay sinh vien 2004"
+        << endl;
+}
 
     return 0;
 }
