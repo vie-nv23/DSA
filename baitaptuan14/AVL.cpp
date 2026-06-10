@@ -49,11 +49,80 @@ int canBang(Node* p)
 
     return trai - phai;
 }
+Node* xoayPhai(Node* y)
+{
+    Node* x =
+        y->left;
+
+    Node* t2 =
+        x->right;
+
+    x->right = y;
+
+    y->left = t2;
+
+    return x;
+}
+
+Node* xoayTrai(Node* x)
+{
+    Node* y =
+        x->right;
+
+    Node* t2 =
+        y->left;
+
+    y->left = x;
+
+    x->right = t2;
+
+    return y;
+}
+int lonHon(int a,
+           int b)
+{
+    if (a > b)
+    {
+        return a;
+    }
+
+    return b;
+}
+Node* chenAVL(Node* root,
+              int x)
+{
+    if (root == NULL)
+    {
+        return taoNode(x);
+    }
+
+    if (x < root->data)
+    {
+        root->left =
+            chenAVL(root->left,
+                    x);
+    }
+    else
+    {
+        root->right =
+            chenAVL(root->right,
+                    x);
+    }
+
+    root->height =
+        1 +
+        lonHon(chieuCao(root->left),
+               chieuCao(root->right));
+
+    return root;
+}
 int main()
 {
     Node* root = NULL;
 
-    root = taoNode(32);
+    root = chenAVL(root, 32);
+    root = chenAVL(root, 51);
+    root = chenAVL(root, 27);
 
     cout
         << "Gia tri node:" ;
@@ -75,6 +144,19 @@ int main()
     cout
         << canBang(root)
         << endl;
+    cout
+    << "test xoay:";
+    cout
+    << endl;
+cout
+    << "Gia tri goc: "
+    << root->data
+    << endl;
+
+cout
+    << "Chieu cao moi: "
+    << chieuCao(root)
+    << endl;
 
     return 0;
 }
