@@ -110,19 +110,72 @@ Node* chenAVL(Node* root,
     }
 
     root->height =
-        1 +
-        lonHon(chieuCao(root->left),
-               chieuCao(root->right));
+    1 +
+    lonHon(chieuCao(root->left),
+           chieuCao(root->right));
 
-    return root;
+int balance =
+    canBang(root);
+    if (balance > 1 &&
+    x < root->left->data)
+{
+    return xoayPhai(root);
+}
+if (balance < -1 &&
+    x > root->right->data)
+{
+    return xoayTrai(root);
+}
+if (balance > 1 &&
+    x > root->left->data)
+{
+    root->left =
+        xoayTrai(root->left);
+
+    return xoayPhai(root);
+}
+if (balance < -1 &&
+    x < root->right->data)
+{
+    root->right =
+        xoayPhai(root->right);
+
+    return xoayTrai(root);
+}
+return root;
+}
+void NLR(Node* root)
+{
+    if (root != NULL)
+    {
+        cout
+            << root->data
+            << " ";
+
+        NLR(root->left);
+
+        NLR(root->right);
+    }
 }
 int main()
 {
     Node* root = NULL;
 
-    root = chenAVL(root, 32);
-    root = chenAVL(root, 51);
-    root = chenAVL(root, 27);
+root = chenAVL(root, 32);
+root = chenAVL(root, 51);
+root = chenAVL(root, 27);
+root = chenAVL(root, 83);
+root = chenAVL(root, 96);
+root = chenAVL(root, 11);
+root = chenAVL(root, 45);
+root = chenAVL(root, 75);
+root = chenAVL(root, 66);
+
+cout
+    << "Duyet NLR:"
+    << endl;
+
+NLR(root);
 
     cout
         << "Gia tri node:" ;
@@ -157,6 +210,11 @@ cout
     << "Chieu cao moi: "
     << chieuCao(root)
     << endl;
+
+    cout
+    << "Duyet NLR: ";
+
+    NLR(root);
 
     return 0;
 }
