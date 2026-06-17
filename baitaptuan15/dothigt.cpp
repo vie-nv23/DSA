@@ -1,23 +1,71 @@
 #include <iostream>
 
 using namespace std;
+int q[100];
+
+int dau = 0;
+int cuoi = -1;
+void BFS(int ke[][11],
+         string ten[])
+{
+    int daTham[11];
+
+    for (int i = 0;
+         i < 11;
+         i++)
+    {
+        daTham[i] = 0;
+    }
+
+    cuoi++;
+
+    q[cuoi] = 0;
+
+    daTham[0] = 1;
+
+    while (dau <= cuoi)
+    {
+        int u =
+            q[dau];
+
+        dau++;
+
+        cout
+            << ten[u]
+            << endl;
+
+        for (int v = 0;
+             v < 11;
+             v++)
+        {
+            if (ke[u][v] == 1 &&
+                daTham[v] == 0)
+            {
+                cuoi++;
+
+                q[cuoi] = v;
+
+                daTham[v] = 1;
+            }
+        }
+    }
+}
 
 int main()
 {
     string ten[11] =
-    {
-        "Ha Noi",
-        "Hai Duong",
-        "Phu Ly",
-        "Hung Yen",
-        "Hai Phong",
-        "Uong Bi",
-        "Bac Giang",
-        "Bac Ninh",
-        "Thai Nguyen",
-        "Son Tay",
-        "Hoa Binh"
-    };
+        {
+            "Ha Noi",
+            "Hai Duong",
+            "Phu Ly",
+            "Hung Yen",
+            "Hai Phong",
+            "Uong Bi",
+            "Bac Giang",
+            "Bac Ninh",
+            "Thai Nguyen",
+            "Son Tay",
+            "Hoa Binh"};
 
     int ke[11][11];
 
@@ -86,6 +134,7 @@ int main()
             << ten[i]
             << endl;
     }
-
+    cout << "BFS: " << endl;
+    BFS(ke, ten);
     return 0;
 }
