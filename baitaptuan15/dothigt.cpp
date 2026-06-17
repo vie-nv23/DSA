@@ -91,7 +91,61 @@ void BFS(int ke[][11],
         }
     }
 }
+void BFS_DSLK(Node* dsKe[],
+              string ten[])
+{
+    int daTham[11];
 
+    for (int i = 0;
+         i < 11;
+         i++)
+    {
+        daTham[i] = 0;
+    }
+
+    int q[100];
+
+    int dau = 0;
+    int cuoi = -1;
+
+    cuoi++;
+
+    q[cuoi] = 0;
+
+    daTham[0] = 1;
+
+    while (dau <= cuoi)
+    {
+        int u =
+            q[dau];
+
+        dau++;
+
+        cout
+            << ten[u]
+            << endl;
+
+        Node* p =
+            dsKe[u];
+
+        while (p != NULL)
+        {
+            int v =
+                p->data;
+
+            if (daTham[v] == 0)
+            {
+                cuoi++;
+
+                q[cuoi] = v;
+
+                daTham[v] = 1;
+            }
+
+            p = p->next;
+        }
+    }
+}
 int main()
 {
     string ten[11] =
@@ -254,5 +308,13 @@ for (int i = 0;
     cout
         << endl;
 }
+cout
+    << endl;
+
+cout
+    << "BFS bang danh sach lien ket:"
+    << endl;
+
+    BFS_DSLK(dsKe, ten);
     return 0;
 }
