@@ -5,7 +5,7 @@ int q[100];
 
 int dau = 0;
 int cuoi = -1;
-
+int chaBFS[11];
 int daThamDFS[11];
 
 bool timThay = false;
@@ -206,6 +206,88 @@ void inDuongDi(int dich,
         cout
             << ten[duong[i]]
             << endl;
+    }
+}
+void inDuongDiNganNhat(int dich,
+                       string ten[])
+{
+    int duong[20];
+
+    int dem = 0;
+
+    while (dich != -1)
+    {
+        duong[dem] = dich;
+
+        dem++;
+
+        dich = chaBFS[dich];
+    }
+
+    for (int i = dem - 1;
+         i >= 0;
+         i--)
+    {
+        cout
+            << ten[duong[i]]
+            << endl;
+    }
+}
+void BFS_NganNhat(Node* dsKe[],
+                  int dauTien,
+                  int dich)
+{
+    int daTham[11];
+
+    for (int i = 0;
+         i < 11;
+         i++)
+    {
+        daTham[i] = 0;
+
+        chaBFS[i] = -1;
+    }
+
+    int q[100];
+
+    int dau = 0;
+
+    int cuoi = -1;
+
+    cuoi++;
+
+    q[cuoi] = dauTien;
+
+    daTham[dauTien] = 1;
+
+    while (dau <= cuoi)
+    {
+        int u =
+            q[dau];
+
+        dau++;
+
+        Node* p =
+            dsKe[u];
+
+        while (p != NULL)
+        {
+            int v =
+                p->data;
+
+            if (daTham[v] == 0)
+            {
+                daTham[v] = 1;
+
+                chaBFS[v] = u;
+
+                cuoi++;
+
+                q[cuoi] = v;
+            }
+
+            p = p->next;
+        }
     }
 }
 int main()
@@ -427,5 +509,18 @@ else
         << "Khong co duong di"
         << endl;
 }
+cout
+    << endl;
+
+cout
+    << "Duong di ngan nhat Ha Noi -> Hai Phong"
+    << endl;
+
+BFS_NganNhat(dsKe,
+             0,
+             4);
+
+inDuongDiNganNhat(4,
+                  ten);
     return 0;
 }
