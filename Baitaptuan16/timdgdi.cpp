@@ -9,7 +9,7 @@ int cuoi = -1;
 int daThamDFS[11];
 
 bool timThay = false;
-
+int cha[11];
 struct Node
 {
     int data;
@@ -174,12 +174,38 @@ void DFS(Node* dsKe[],
 
         if (daThamDFS[v] == 0)
         {
+            cha[v] = u;
             DFS(dsKe,
                 v,
                 dich);
         }
 
         p = p->next;
+    }
+}
+void inDuongDi(int dich,
+               string ten[])
+{
+    int duong[20];
+
+    int dem = 0;
+
+    while (dich != -1)
+    {
+        duong[dem] = dich;
+
+        dem++;
+
+        dich = cha[dich];
+    }
+
+    for (int i = dem - 1;
+         i >= 0;
+         i--)
+    {
+        cout
+            << ten[duong[i]]
+            << endl;
     }
 }
 int main()
@@ -358,6 +384,17 @@ cout
 {
     daThamDFS[i] = 0;
 }
+for (int i = 0;
+
+     i < 11;
+
+     i++)
+
+{
+
+    cha[i] = -1;
+
+}
 
 cout
     << endl;
@@ -375,6 +412,14 @@ if (timThay == true)
     cout
         << "Co duong di"
         << endl;
+         cout
+        << "Duong di:"
+
+        << endl;
+
+    inDuongDi(4,
+
+              ten);
 }
 else
 {
