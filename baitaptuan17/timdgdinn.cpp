@@ -88,6 +88,78 @@ int main()
 
         cout<<endl;
     }
+    int kc[11];
+    int daXet[11];
+    int cha[11];
 
+    for(int i=0;i<11;i++)
+    {
+        kc[i]=1000000;
+        daXet[i]=0;
+        cha[i]=-1;
+    }
+
+    kc[0]=0;
+
+    for(int k=0;k<11;k++)
+    {
+        int u=-1;
+        int min=1000000;
+
+        for(int i=0;i<11;i++)
+        {
+            if(daXet[i]==0 && kc[i]<min)
+            {
+                min=kc[i];
+                u=i;
+            }
+        }
+
+        if(u==-1)
+        {
+            break;
+        }
+
+        daXet[u]=1;
+
+        for(int v=0;v<11;v++)
+        {
+            if(a[u][v]!=0)
+            {
+                if(daXet[v]==0 && kc[u]+a[u][v]<kc[v])
+                {
+                    kc[v]=kc[u]+a[u][v];
+                    cha[v]=u;
+                }
+            }
+        }
+    }
+
+    cout<<endl;
+    cout<<"Duong di ngan nhat Ha Noi -> Uong Bi"<<endl;
+
+    int duong[20];
+    int dem=0;
+    int x=5;
+
+    while(x!=-1)
+    {
+        duong[dem]=x;
+        dem++;
+        x=cha[x];
+    }
+
+    for(int i=dem-1;i>=0;i--)
+    {
+        cout<<ten[duong[i]];
+
+        if(i!=0)
+        {
+            cout<<" -> ";
+        }
+    }
+
+    cout<<endl;
+    cout<<"Tong trong so: "<<kc[5]<<endl;
     return 0;
 }
