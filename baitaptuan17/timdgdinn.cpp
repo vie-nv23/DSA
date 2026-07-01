@@ -88,29 +88,39 @@ int main()
 
         cout<<endl;
     }
+    int dauTien;
+    int dich;
+    cout << "Nhap dinh bat dau: ";
+
+    cin >> dauTien;
+
+    cout << "Nhap dinh dich: ";
+
+    cin >> dich;
+
     int kc[11];
     int daXet[11];
     int cha[11];
 
     for(int i=0;i<11;i++)
     {
-        kc[i]=1000000;
+        kc[i]=100;
         daXet[i]=0;
         cha[i]=-1;
     }
 
-    kc[0]=0;
+    kc[dauTien]=0;
 
     for(int k=0;k<11;k++)
     {
         int u=-1;
-        int min=1000000;
+        int minValue=100;
 
         for(int i=0;i<11;i++)
         {
-            if(daXet[i]==0 && kc[i]<min)
+            if(daXet[i]==0 && kc[i]<minValue)
             {
-                min=kc[i];
+                minValue=kc[i];
                 u=i;
             }
         }
@@ -136,11 +146,15 @@ int main()
     }
 
     cout<<endl;
-    cout<<"Duong di ngan nhat Ha Noi -> Uong Bi"<<endl;
+    cout<<"Duong di ngan nhat tu"
+         << ten[dauTien]
+        << " -> "
+        << ten[dich]
+        <<endl;
 
     int duong[20];
     int dem=0;
-    int x=5;
+    int x=dich;
 
     while(x!=-1)
     {
@@ -160,6 +174,170 @@ int main()
     }
 
     cout<<endl;
-    cout<<"Tong trong so: "<<kc[5]<<endl;
+    cout<<"Tong trong so: "<<kc[dich]<<endl;
+        cout<<endl;
+    cout<<"PRIM"<<endl;
+
+    int key[11];
+    int parent[11];
+    int chon[11];
+
+    for(int i=0;i<11;i++)
+    {
+        key[i]=100;
+        parent[i]=-1;
+        chon[i]=0;
+    }
+
+    key[dauTien]=0;
+
+    for(int dem=0;dem<11;dem++)
+    {
+        int u=-1;
+        int minValue=100;
+
+        for(int i=0;i<11;i++)
+        {
+            if(chon[i]==0 && key[i]<minValue)
+            {
+                minValue=key[i];
+                u=i;
+            }
+        }
+
+        if(u==-1) break;
+
+        chon[u]=1;
+
+        for(int v=0;v<11;v++)
+        {
+            if(a[u][v]!=0)
+            {
+                if(chon[v]==0 && a[u][v]<key[v])
+                {
+                    key[v]=a[u][v];
+                    parent[v]=u;
+                }
+            }
+        }
+    }
+
+    int cay[11][11];
+
+    for(int i=0;i<11;i++)
+    {
+        for(int j=0;j<11;j++)
+        {
+            cay[i][j]=0;
+        }
+    }
+
+    for(int i=1;i<11;i++)
+    {
+        cay[i][parent[i]]=a[i][parent[i]];
+        cay[parent[i]][i]=a[i][parent[i]];
+    }
+
+    cout<<"Ma tran cay khung PRIM"<<endl;
+
+    for(int i=0;i<11;i++)
+    {
+        for(int j=0;j<11;j++)
+        {
+            cout<<cay[i][j]<<" ";
+        }
+
+        cout<<endl;
+    }
+
+    cout<<endl;
+    cout<<"KRUSKAL"<<endl;
+
+    struct Edge
+    {
+        int u;
+        int v;
+        int w;
+    };
+
+    Edge e[30];
+
+    int m=0;
+
+    for(int i=0;i<11;i++)
+    {
+        for(int j=i+1;j<11;j++)
+        {
+            if(a[i][j]!=0)
+            {
+                e[m].u=i;
+                e[m].v=j;
+                e[m].w=a[i][j];
+                m++;
+            }
+        }
+    }
+
+    for(int i=0;i<m-1;i++)
+    {
+        for(int j=i+1;j<m;j++)
+        {
+            if(e[i].w>e[j].w)
+            {
+                Edge t=e[i];
+                e[i]=e[j];
+                e[j]=t;
+            }
+        }
+    }
+
+    int root[11];
+
+    for(int i=0;i<11;i++)
+    {
+        root[i]=i;
+    }
+
+    int cay2[11][11];
+
+    for(int i=0;i<11;i++)
+    {
+        for(int j=0;j<11;j++)
+        {
+            cay2[i][j]=0;
+        }
+    }
+
+    for(int i=0;i<m;i++)
+    {
+        int r1=root[e[i].u];
+        int r2=root[e[i].v];
+
+        if(r1!=r2)
+        {
+            cay2[e[i].u][e[i].v]=e[i].w;
+            cay2[e[i].v][e[i].u]=e[i].w;
+
+            for(int j=0;j<11;j++)
+            {
+                if(root[j]==r2)
+                {
+                    root[j]=r1;
+                }
+            }
+        }
+    }
+
+    cout<<"Ma tran cay khung KRUSKAL"<<endl;
+
+    for(int i=0;i<11;i++)
+    {
+        for(int j=0;j<11;j++)
+        {
+            cout<<cay2[i][j]<<" ";
+        }
+
+        cout<<endl;
+    }
     return 0;
 }
